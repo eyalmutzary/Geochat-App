@@ -1,0 +1,8 @@
+<div class="list">
+
+    <div *ngFor="let user of users" class="user m-1">
+        <img class="avatar" [src]="user.avatar">
+        <span class="name text-muted ml-2">{{ user.name }}</span>
+    </div>
+
+</div>

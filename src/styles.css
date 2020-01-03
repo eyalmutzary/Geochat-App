@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    /* background-color: rgb(240,240,240) !important; */
+    /* background-image: url("src/assets/images/background.jpg"); */
+    background:url('src/assets/images/background.jpg') no-repeat center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
