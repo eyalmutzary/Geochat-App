@@ -17,4 +17,8 @@ export class WritingAreaComponent implements OnInit {
     }
   }
 
+  onSendMessage(){
+    console.log("click")
+  }
+
 }

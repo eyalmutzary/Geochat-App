@@ -14,6 +14,8 @@ import { ChatHeaderComponent } from './chat/chat-header/chat-header.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { AppRoutingModule } from './app-routing.module';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { RegisterComponent } from './auth/register/register.component';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
