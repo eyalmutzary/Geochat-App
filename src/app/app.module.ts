@@ -14,6 +14,8 @@ import { ChatHeaderComponent } from './chat/chat-header/chat-header.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AuthService } from './auth/auth.service';
+import { ChatService } from './chat/chat.service';
 
 
 @NgModule({
@@ -27,15 +29,19 @@ import { AppRoutingModule } from './app-routing.module';
     WritingAreaComponent,
     ChatHeaderComponent,
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    AuthService, 
+    ChatService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

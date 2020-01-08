@@ -4,7 +4,10 @@
         <h5 class="modal-title">Login</h5>
         </div>
         <div class="modal-body">
-            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div id="loadingSpinner" class="m-3 container" *ngIf="isLoading">
+            <div class="loader"></div>
+          </div>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading" >
                 <div class="form-group">
                   <label>Email address</label>
                   <input formControlName="email" type="email" class="form-control"placeholder="Enter email">
@@ -20,15 +23,17 @@
                     <span class="text-danger" *ngIf="loginForm.get('password').errors['required']">Please enter a password.</span>
                   </div>  
                 </div>
-                <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                  <label class="form-check-label" for="exampleCheck1">Remember Me</label>
-                </div>
+                <!-- <div class="form-check"> -->
+                  <p class="text-danger">{{ errorMessage }}</p>
+                  <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                  <label class="form-check-label" for="exampleCheck1">Remember Me</label> -->
+                <!-- </div> -->
                 <p><a routerLink="/sign-up" href="" class="">First time here? Sign up!</a></p>
-
+                
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid" >Login</button>
                 </div>
+              
             </form>
         </div>
 

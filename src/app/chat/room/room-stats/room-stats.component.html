@@ -1,5 +1,17 @@
+<div *ngIf="isMobile" class="row">
+    <div class="col text-left">
+        <button type="button" routerLink="/chat" class="btn"><i class="fas fa-arrow-left lead text-muted"></i></button>
+    </div>
+    <div class="col text-right">
+        <button type="button" (click)="onLogout()" class="btn"><i class="fas fa-sign-out-alt lead text-muted"></i></button>
+    </div>
+</div>
+
 <div class="container">
     <h1 class="display-3 text-center">{{ time | date: 'HH:mm' }}</h1>
     <p class="lead text-center">{{ time | date: 'MMMM dd, yyyy' }}</p>
 </div>
 <hr>
+
+
+<!-- ADD GUARDS -->

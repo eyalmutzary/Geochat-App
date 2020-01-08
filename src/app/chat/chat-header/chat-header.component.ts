@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+
+import { ChatService } from '../chat.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-chat-header',
@@ -7,14 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatHeaderComponent implements OnInit {
   roomTitle: string = "Unkown Room Name"
+  isMobile = false;
 
-  constructor() { }
+  constructor(private chatService: ChatService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.isMobile = this.chatService.getIsMobile();
+    window.onresize = () => {
+      this.isMobile = this.chatService.getIsMobile();
+    };
+    this.roomTitle = JSON.parse(localStorage.getItem('userData')).region
+
   }
 
-  openSettings() {
-      // open logout, and group options
+  onLogout(){
+    this.authService.logout();
   }
 
 }

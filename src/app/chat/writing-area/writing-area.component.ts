@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import * as io from 'socket.io-client';
+import { Observable } from 'rxjs';
+import { ChatService } from '../chat.service'
+// import * as io from 'socket.io';
+
 
 @Component({
   selector: 'app-writing-area',
@@ -7,18 +12,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WritingAreaComponent implements OnInit {
   rows = "3";
+  // socket;
+  // observable: Observable<string>;
+  message;
+  messages = [];
+  connection;
+  @ViewChild('writingArea', {static: true}) myInput: ElementRef;
 
-  constructor() { }
-
-  ngOnInit() {
-    if (window.screen.width < 1000) { // 768px portrait
-      console.log("Phone screen")
-      this.rows = "2"
-    }
+  constructor(public chatService: ChatService) { 
+    // this.socket = io('http://localhost:3000'); 
   }
+  
 
   onSendMessage(){
-    console.log("click")
+    this.chatService.sendMessage(this.myInput.nativeElement.value);
+    this.message = '';
+    this.myInput.nativeElement.value = ''
+  }
+
+  ngOnInit() {
+    this.connection = this.chatService.getMessages().subscribe(message => {
+      // this.messages.push(message);
+      this.chatService.newMessageAdded(message)
+    })
+    
+  }
+  
+  ngOnDestroy() {
+    this.connection.unsubscribe();
   }
 
 }

@@ -4,7 +4,10 @@
         <h5 class="modal-title">Register</h5>
         </div>
         <div class="modal-body">
-            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+            <div id="loadingSpinner" class="m-3 container" *ngIf="isLoading">
+                <div class="loader"></div>
+            </div>
+            <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
                 <div class="form-group">
                     <label>Email:</label>
                     <input formControlName="email" type="text" class="form-control" placeholder="for@example.com">
@@ -297,6 +300,8 @@
                         <option value="Zimbabwe">Zimbabwe</option>
                     </select>
                 </div>
+                <p class="text-danger">{{ errorMessage }}</p>
+
                 <p><a routerLink="/login" class="">Already have a user? Log in!</a></p>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Register</button>

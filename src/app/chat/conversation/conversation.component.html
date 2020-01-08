@@ -24,7 +24,11 @@
                 <img class="avatar" [src]="message.avatar">
             </div> -->
             <p class="content bg-primary text-left text-light mr-4 mt-1 p-2">{{ message.content }}</p>
-            
+        </div>
+
+        <!-- neutral -->
+        <div class="message text-center" *ngIf="message.sender === 'neutral'">
+            <p class="content bg-info text-center text-light pl-2 pr-2 pt-1 pb-1 rounded">{{ message.content }}</p>
         </div>
         
     </div>

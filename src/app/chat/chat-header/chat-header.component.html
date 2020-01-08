@@ -1,5 +1,6 @@
 <nav class="navbar">
     <h1 class="lead">{{ roomTitle }}</h1>
-    <button type="button" (click)="openSettings()" class="btn"><i class="fas fa-bars lead text-muted"></i></button>
+    <button *ngIf="isMobile" type="button" routerLink="/room" class="btn"><i class="fas fa-ellipsis-h lead text-muted"></i></button>
+    <button *ngIf="!isMobile" type="button" (click)="onLogout()" class="btn"><i class="fas fa-sign-out-alt lead text-muted"></i></button>
 </nav>
 <hr class="m-0">
