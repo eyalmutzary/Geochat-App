@@ -7,7 +7,9 @@ input.ng-invalid.ng-touched, select.ng-invalid.ng-touched{
   }
 
 
-
+  .locationText{
+    font-weight: bold;
+  }
 
 /* CSS SPINNER */
 .loader {

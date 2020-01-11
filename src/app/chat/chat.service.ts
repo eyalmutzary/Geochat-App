@@ -13,6 +13,8 @@ import { AuthService } from '../auth/auth.service'
 export class ChatService {
 
   messageListener = new Subject<string>();
+  locationListener = new Subject();
+  userListListener = new Subject();
   messages = [];
   private url = 'http://localhost:3000';  
   private socket = io('http://localhost:3000')
@@ -27,13 +29,10 @@ export class ChatService {
   }
 
   sendMessage(message){
-    // this.findGeoRoom().subscribe((res) => {
-    //   console.log(res)
-    // })
-
     this.userSub = this.authService.user.subscribe(user => {
-          this.socket.emit('sendMessage', message, user._id);    
+          this.socket.emit('sendMessage', message, user._id, user.region);    
     });
+    this.userSub.unsubscribe()
   }
   
   getMessages() {
@@ -50,30 +49,20 @@ export class ChatService {
             data.sender = "foreign"
           }
         });
-
+        this.userSub.unsubscribe()
         observer.next(data);    
       });
       return () => {
-        this.socket.disconnect("Eyal", "Israel");
+        this.socket.disconnect();
       };  
-    })     
+    })
+    
     return observable;
   }  
 
   newMessageAdded(message){
     this.messages.push(message)
     this.messageListener.next();
-  }
-
-  findGeoRoom(){
-    // fetch('http://ip-api.com/json/').then(
-    //   (response) => {
-    //     response.json().then(function(data){
-    //       console.log(data)
-    //     })
-    //   }
-    // )
-    return this.http.get('http://ip-api.com/json/')
   }
 
   getIsMobile() {
@@ -85,6 +74,28 @@ export class ChatService {
       return false;
     }
   }
+
+  findGeoRoom(){
+    return this.http.get('http://ip-api.com/json/')
+  }
+
+  getUsersList(){
+    console.log("waiting for users list...")
+    let observable = new Observable(observer => {
+      this.socket.on('sendUsersList', (data) => {
+        console.log("got new users")
+        observer.next(data);    
+      }); 
+    })     
+    return observable;
+  }
+
+  // disconnect(){
+  //   console.log("Disconnecting..")
+  //   const user = JSON.parse(localStorage.getItem('userData'))
+  //   console.log(user)
+  //   this.socket.emit('disconnect', user.fullname, user.region)
+  // }
 
 
 }

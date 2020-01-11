@@ -6,6 +6,7 @@ import { catchError, tap } from 'rxjs/operators';
 
 import { User } from './user.model';
 import { BehaviorSubject, throwError } from 'rxjs';
+import { ChatService } from '../chat/chat.service';
 
 export interface AuthResponseData {
     user: {
@@ -42,7 +43,7 @@ export class AuthService {
   }
 
 
-  login(email: string, password: string) {
+  login(email: string, password: string, currentLoc: string) {
     return this.http
       .post<AuthResponseData>(
         'http://localhost:3000/users/login',
@@ -58,7 +59,7 @@ export class AuthService {
             resData.user._id,
             resData.user.fullname,
             resData.user.email,
-            resData.user.region,
+            currentLoc,
             resData.token
             );
         })
@@ -114,22 +115,7 @@ export class AuthService {
   }
 
   private handleError(errorRes: HttpErrorResponse) {
-    // if(errorRes.status === '404')
-      // errorMessage = 'An unknown error occurred!';
-    // if (!errorRes.error || !errorRes.error.error) {
     return throwError(errorRes.status);
-    // }
-    // switch (errorRes.error.error.message) {
-    //   case 'EMAIL_EXISTS':
-    //     errorMessage = 'This email exists already';
-    //     break;
-    //   case 'EMAIL_NOT_FOUND':
-    //     errorMessage = 'This email does not exist.';
-    //     break;
-    //   case 'INVALID_PASSWORD':
-    //     errorMessage = 'This password is not correct.';
-    //     break;
-    // }
-    // return throwError(errorMessage);
   }
+
 }

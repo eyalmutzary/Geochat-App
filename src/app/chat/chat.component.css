@@ -46,7 +46,8 @@
   }
   .bottom{
     height: 10vh;
-    background-color: rgb(240,240,240);
+    margin-left: 5px;
+    /* background-color: rgb(240,240,240); */
   }
 
   .room{
