@@ -1,6 +1,9 @@
 {
   "name": "geochat-app",
   "version": "0.0.0",
+  "engines": {
+    "node": ">=50.9"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
